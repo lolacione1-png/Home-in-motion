@@ -1,0 +1,10 @@
+{
+  "name": "Home in Motion",
+  "short_name": "Home in Motion",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f8f2ea",
+  "theme_color": "#f8f2ea",
+  "description": "Simple rhythms. Meaningful memories.",
+  "icons": []
+}
