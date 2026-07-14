@@ -1,10 +1,21 @@
 {
   "name": "Home in Motion",
   "short_name": "Home in Motion",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#f8f2ea",
-  "theme_color": "#f8f2ea",
   "description": "Simple rhythms. Meaningful memories.",
-  "icons": []
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fbf6ef",
+  "theme_color": "#fbf6ef",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }

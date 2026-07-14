@@ -1,4 +1,1 @@
-const CACHE = 'home-in-motion-v01';
-const ASSETS = ['./', './index.html', './styles.css', './app.js', './manifest.json'];
-self.addEventListener('install', event => event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS))));
-self.addEventListener('fetch', event => event.respondWith(caches.match(event.request).then(hit => hit || fetch(event.request))));
+const C='him-ch2-v1';const A=['./','index.html','styles.css','app.js','manifest.json','assets/icon-192.png','assets/icon-512.png'];self.addEventListener('install',e=>e.waitUntil(caches.open(C).then(c=>c.addAll(A))));self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==C).map(k=>caches.delete(k))))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));
