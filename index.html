@@ -1,12 +1,208 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#fbf6ef"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Home in Motion"><title>Home in Motion</title><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="assets/icon-192.png"><link rel="stylesheet" href="styles.css"></head><body>
-<section id="cover" class="cover"><div class="cover-card"><div class="script">home</div><div class="script small">in motion</div><p class="tagline">Simple rhythms. Meaningful memories.</p><div class="cover-copy"><h1>Welcome Home, Lola.</h1><p>This book was never meant to tell you who to be.<br>It was written to remind you who you already are.</p><button id="enterApp" class="primary">Turn the page</button></div></div></section>
-<main id="app" class="app hidden"><header class="topbar"><div><p id="todayDate" class="eyebrow"></p><h1 class="logo">Home <em>in</em> Motion</h1></div><button id="resetDemo" class="icon-btn" aria-label="Reset demo">↺</button></header>
-<section id="story" class="view active"><div class="hero"><p class="eyebrow">Today’s Story</p><h2 id="greeting"></h2><p id="themeLine" class="theme-pill"></p></div><article class="question-card"><span>Today’s Question</span><h3>What does today’s version of Lola need?</h3></article><div class="section-title"><div><span>Today’s Chapters</span><h3>Your day, one chapter at a time.</h3></div><button id="closeStory" class="text-btn">Close today’s story</button></div><div id="timeline" class="timeline"></div><article class="card nudge"><span>Friendly Nudge</span><h3>A little reminder from Remi.</h3><p id="nudgeText"></p></article></section>
-<section id="calendar" class="view"><div class="page-heading"><div><p class="eyebrow">Your rhythm. Your people. Your story.</p><h2>Calendar</h2></div><button id="newEvent" class="primary small">+ Add event</button></div><div class="segmented"><button class="seg active" data-cal="month">Month</button><button class="seg" data-cal="week">Weekly Rhythm</button></div><div id="monthView" class="cal-view active"></div><div id="weekView" class="cal-view"></div></section>
-<section id="capture" class="view"><div class="page-heading"><div><p class="eyebrow">Catch it now. Decide later.</p><h2>Capture</h2></div><button id="voiceCapture" class="icon-btn" aria-label="Voice capture">🎙</button></div><div class="segmented"><button class="seg active" data-cap="inbox">Inbox</button><button class="seg" data-cap="collections">Collections</button></div><div id="captureInbox" class="cap-view active"><div class="capture-box"><textarea id="captureInput" placeholder="What’s on your mind?"></textarea><img id="photoPreview" class="photo-preview hidden" alt="Selected photo preview"><div class="capture-actions"><label class="secondary file-label">📷 Add photo<input id="photoInput" type="file" accept="image/*" hidden></label><button id="captureBtn" class="primary">Capture thought</button></div></div><div id="inboxList" class="thoughts"></div></div><div id="captureCollections" class="cap-view"><div class="toolbar"><button id="addCollection" class="secondary">+ New collection</button></div><div id="collectionGrid" class="collection-grid"></div></div></section>
-<section id="author" class="view"><div class="page-heading"><div><p class="eyebrow">Writing Time</p><h2>Author’s Desk</h2></div><div class="pen-icon">🖊</div></div><p class="intro">Take five minutes to write tomorrow’s story.</p><form id="authorForm" class="author-grid"><article class="card"><span>This Week</span><label>Declaration<input id="declaration"></label><label>Intention<input id="intention"></label></article><article class="card"><span>Tomorrow’s Chapters</span><label>Rise<input id="riseInput"></label><label>Family Launch<input id="familyInput"></label><label>Momentum<input id="momentumInput"></label><label>Adventure<input id="adventureInput"></label><label>Restore<input id="restoreInput"></label><label>Gather<input id="gatherInput"></label><label>Rest<input id="restInput"></label></article><article class="card wide"><div class="card-top"><div><span>Ready to Edit</span><h3>Captured thoughts</h3></div><span id="thoughtCount" class="count">0</span></div><div id="authorInbox"></div></article><button class="primary wide" type="submit">Save tomorrow’s story</button></form></section>
-<nav class="bottom-nav"><button class="nav active" data-nav="story"><span>▤</span><small>Story</small></button><button class="nav" data-nav="calendar"><span>▦</span><small>Calendar</small></button><button class="nav" data-nav="capture"><span>◉</span><small>Capture</small></button><button class="nav" data-nav="author"><span>🖊</span><small>Author’s Desk</small></button></nav></main>
-<dialog id="eventDialog"><form id="eventForm"><div class="dialog-top"><h3>Add event</h3><button type="button" class="icon-btn" data-close="eventDialog">×</button></div><label>Title<input id="eventTitle" required></label><label>Date<input id="eventDate" type="date" required></label><label>Time<input id="eventTime" type="time"></label><label>Calendar<select id="eventCalendar"><option>Family</option><option>Lola</option><option>Rosie</option><option>Gio</option><option>Husband</option><option>Bills</option></select></label><button class="primary" type="submit">Save event</button></form></dialog>
-<dialog id="sortDialog"><form><div class="dialog-top"><div><span>Where does this belong?</span><h3 id="sortTitle"></h3></div><button type="button" class="icon-btn" data-close="sortDialog">×</button></div><input id="sortId" type="hidden"><button type="button" class="destination" data-dest="story">📖 Add to a chapter</button><button type="button" class="destination" data-dest="calendar">📅 Add to Calendar</button><div class="collection-picker"><label>🌱 Move to Collection<select id="collectionSelect"></select></label><button type="button" class="destination" data-dest="collection">Found a home</button></div><button type="button" class="destination danger" data-dest="delete">Remove thought</button></form></dialog>
-<dialog id="chapterDialog"><form><div class="dialog-top"><h3>Choose a chapter</h3><button type="button" class="icon-btn" data-close="chapterDialog">×</button></div><div id="chapterChoices" class="chapter-choices"></div></form></dialog>
-<div id="toast" class="toast"></div><div id="sparkles" class="sparkles"></div><div id="closeOverlay" class="close-overlay hidden"><div class="book">📖</div><h2>Today’s story is complete.</h2><p>Even messy stories deserve a place on the shelf.</p><button id="placeOnShelf" class="primary">Place it on the shelf</button><button id="notYet" class="text-btn">Not yet</button></div><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#fbf6ef">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Home in Motion">
+  <link rel="manifest" href="manifest.webmanifest?v=3">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png?v=3">
+  <link rel="stylesheet" href="styles.css?v=3">
+  <title>Home in Motion</title>
+</head>
+<body>
+<section id="cover" class="cover">
+  <div class="cover-card">
+    <div class="script">home</div>
+    <div class="script small">in motion</div>
+    <p class="tagline">Simple rhythms. Meaningful memories.</p>
+    <div class="cover-copy">
+      <h1>Welcome Home, Lola.</h1>
+      <p>This book was never meant to tell you who to be.<br>It was written to remind you who you already are.</p>
+      <button id="enterApp" class="primary">Turn the page</button>
+    </div>
+  </div>
+</section>
+
+<main id="app" class="app hidden">
+  <header class="topbar">
+    <div>
+      <p id="todayDate" class="eyebrow"></p>
+      <h1 class="logo">Home <em>in</em> Motion</h1>
+    </div>
+    <button id="resetDemo" class="icon-btn" aria-label="Reset demo">↺</button>
+  </header>
+
+  <section id="story" class="view active">
+    <div class="hero">
+      <p class="eyebrow">Today’s Story</p>
+      <h2 id="greeting"></h2>
+      <p id="themeLine" class="theme-pill"></p>
+    </div>
+
+    <article class="question-card">
+      <span>Today’s Question</span>
+      <h3>What does today’s version of Lola need?</h3>
+    </article>
+
+    <div class="section-title chapters-title">
+      <div><span>Today’s Chapters</span><h3>Your day, one chapter at a time.</h3></div>
+    </div>
+
+    <div id="timeline" class="timeline"></div>
+
+    <article class="card nudge">
+      <span>Friendly Nudge</span>
+      <h3>A little reminder from Remi.</h3>
+      <p id="nudgeText"></p>
+    </article>
+
+    <button id="closeStory" class="close-story-card">
+      <span class="close-story-icon">📖</span>
+      <span><strong>Close today’s story</strong><small>Place this day on the shelf—exactly as it was.</small></span>
+      <span aria-hidden="true">›</span>
+    </button>
+  </section>
+
+  <section id="calendar" class="view">
+    <div class="page-heading">
+      <div><p class="eyebrow">Your rhythm. Your people. Your story.</p><h2>Calendar</h2></div>
+      <button id="newEvent" class="primary small">+ Add event</button>
+    </div>
+    <div class="segmented">
+      <button class="seg active" data-cal="month">Month</button>
+      <button class="seg" data-cal="week">Weekly Rhythm</button>
+    </div>
+    <div id="monthView" class="cal-view active"></div>
+    <div id="weekView" class="cal-view"></div>
+  </section>
+
+  <section id="capture" class="view">
+    <div class="page-heading">
+      <div><p class="eyebrow">Catch it now. Decide later.</p><h2>Capture</h2></div>
+      <button id="voiceCapture" class="icon-btn" aria-label="Voice capture">🎙</button>
+    </div>
+    <div class="segmented">
+      <button class="seg active" data-cap="inbox">Inbox</button>
+      <button class="seg" data-cap="collections">Collections</button>
+    </div>
+
+    <div id="captureInbox" class="cap-view active">
+      <div class="capture-box">
+        <textarea id="captureInput" placeholder="What’s on your mind?"></textarea>
+        <img id="photoPreview" class="photo-preview hidden" alt="Selected photo preview">
+        <div class="capture-actions">
+          <label class="secondary file-label">📷 Add photo<input id="photoInput" type="file" accept="image/*" hidden></label>
+          <button id="captureBtn" class="primary" type="button">Capture thought</button>
+        </div>
+        <p class="capture-help">After you capture it, choose a home—or leave it safely in your Inbox.</p>
+      </div>
+      <div id="inboxList" class="thoughts"></div>
+    </div>
+
+    <div id="captureCollections" class="cap-view">
+      <div class="toolbar"><button id="addCollection" class="secondary" type="button">+ New collection</button></div>
+      <div id="collectionGrid" class="collection-grid"></div>
+    </div>
+  </section>
+
+  <section id="author" class="view">
+    <div class="page-heading">
+      <div><p class="eyebrow">Writing Time</p><h2>Author’s Desk</h2></div>
+      <div class="pen-icon">🖊</div>
+    </div>
+    <p class="intro">Take five minutes to write tomorrow’s story.</p>
+
+    <form id="authorForm" class="author-grid">
+      <article class="card">
+        <span>This Week</span>
+        <label>Declaration<input id="declaration"></label>
+        <label>Intention<input id="intention"></label>
+      </article>
+      <article class="card">
+        <span>Tomorrow’s Chapters</span>
+        <div id="authorChapterEditors"></div>
+      </article>
+      <article class="card wide">
+        <div class="card-top">
+          <div><span>Ready to Edit</span><h3>Captured thoughts</h3></div>
+          <span id="thoughtCount" class="count">0</span>
+        </div>
+        <div id="authorInbox"></div>
+      </article>
+      <button class="primary wide" type="submit">Save tomorrow’s story</button>
+    </form>
+  </section>
+
+  <nav class="bottom-nav">
+    <button class="nav active" data-nav="story"><span>▤</span><small>Story</small></button>
+    <button class="nav" data-nav="calendar"><span>▦</span><small>Calendar</small></button>
+    <button class="nav" data-nav="capture"><span>◉</span><small>Capture</small></button>
+    <button class="nav" data-nav="author"><span>🖊</span><small>Author’s Desk</small></button>
+  </nav>
+</main>
+
+<dialog id="eventDialog">
+  <form id="eventForm">
+    <div class="dialog-top"><h3>Add event</h3><button type="button" class="icon-btn" data-close="eventDialog">×</button></div>
+    <label>Title<input id="eventTitle" required></label>
+    <label>Date<input id="eventDate" type="date" required></label>
+    <label>Time<input id="eventTime" type="time"></label>
+    <label>Calendar<select id="eventCalendar"><option>Family</option><option>Lola</option><option>Rosie</option><option>Gio</option><option>Husband</option><option>Bills</option></select></label>
+    <button class="primary" type="submit">Save event</button>
+  </form>
+</dialog>
+
+<dialog id="sortDialog">
+  <form>
+    <div class="dialog-top"><div><span>Where does this belong?</span><h3 id="sortTitle"></h3></div><button type="button" class="icon-btn" data-close="sortDialog">×</button></div>
+    <input id="sortId" type="hidden">
+    <button type="button" class="destination" data-dest="story">📖 Add to a chapter</button>
+    <button type="button" class="destination" data-dest="calendar">📅 Add to Calendar</button>
+    <div class="collection-picker">
+      <label>🌱 Move to Collection<select id="collectionSelect"></select></label>
+      <button type="button" class="destination" data-dest="collection">Found a home</button>
+    </div>
+    <button type="button" class="destination danger" data-dest="delete">Remove thought</button>
+  </form>
+</dialog>
+
+<dialog id="chapterDialog">
+  <form>
+    <div class="dialog-top"><h3>Choose a chapter</h3><button type="button" class="icon-btn" data-close="chapterDialog">×</button></div>
+    <div id="chapterChoices" class="chapter-choices"></div>
+  </form>
+</dialog>
+
+<dialog id="captureHomeDialog">
+  <form>
+    <div class="dialog-top"><div><span>Thought captured</span><h3>Where should it live?</h3></div><button type="button" class="icon-btn" data-close="captureHomeDialog">×</button></div>
+    <button type="button" class="destination" data-capture-home="inbox">📥 Decide later</button>
+    <button type="button" class="destination" data-capture-home="story">📖 Today’s Story</button>
+    <button type="button" class="destination" data-capture-home="calendar">📅 Calendar</button>
+    <div class="collection-picker">
+      <label>🌱 Collection<select id="captureCollectionSelect"></select></label>
+      <button type="button" class="destination" data-capture-home="collection">Found a home</button>
+    </div>
+  </form>
+</dialog>
+
+<div id="toast" class="toast"></div>
+<div id="sparkles" class="sparkles"></div>
+
+<div id="closeOverlay" class="close-overlay hidden">
+  <div class="shelf-scene" aria-hidden="true">
+    <div class="closing-book"><span>Today</span></div>
+    <div class="wood-shelf"></div>
+    <div class="shelf-books"><i></i><i></i><i></i><i></i></div>
+  </div>
+  <h2>Today’s story found its place.</h2>
+  <p>Tomorrow is a blank page.</p>
+  <button id="finishClosing" class="primary">Good night</button>
+  <button id="notYet" class="text-btn">Not yet</button>
+</div>
+<script src="app.js?v=3"></script>
+</body>
+</html>
